@@ -84,3 +84,64 @@ Anotações e códigos de estudo sobre o ecossistema do Kubernetes
                 - name: nginx-container
                     image: nginx
     ```
+
+## Controllers
+
+- São os processos que monitoram os objetos do Kubernetes
+
+    ### Replication Controller
+
+    - Ajuda na execução de várias instâncias de um único POD, criando alta disponibilidade
+    - Ajuda na criação de um novo POD quando o atual estiver falhando
+    - Garante que o número específicado de PODs estão em execução o tempo todo
+    - Ajuda também com o balanceamento de carga entre os PODs e consegue fazer isso em mais de um Node ao mesmo tempo no Cluster
+    - Configuração do Replication Controller em YAML
+        ```yaml
+        apiVersion: v1
+        kind: ReplicationController
+        metadata:
+        name: myapp-rc
+        labels:
+            app: myapp
+            type: front-end
+        spec:
+            template: # Template do Pod que será controlade
+                metadata:
+                name: myapp-pod
+                labels:
+                    app: myapp
+                    tier: front-end
+                spec:
+                containers:
+                    - name: nginx
+                    image: nginx
+            replicas: 3 # Número de Pods que serão executados
+        
+        ```
+    - `Replica Set`
+        - Novo jeito recomendado para se usar
+        - Substitui o Replication Controller
+        - Consegue controlar outros objetos que forem criados fora da definição, mas que tenham labels que foram definidas no `selector`
+        -  Configuração do Replica Set em YAML
+            ```yaml
+            apiVersion: apps/v1
+            kind: ReplicaSet
+            metadata:
+            name: myapp-replicaset
+            labels:
+                app: myapp
+            spec:
+            template:
+                metadata:
+                name: myapp-pod
+                labels:
+                    app: myapp
+                spec:
+                containers:
+                    - name: nginx
+                    image: nginx
+            replicas: 3
+            selector:
+                matchLabels:
+                app: myapp
+            ```
