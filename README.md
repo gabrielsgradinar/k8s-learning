@@ -173,4 +173,13 @@ Anotações e códigos de estudo sobre o ecossistema do Kubernetes
             matchLabels:
                 app: myapp
     ```
-
+- Rollout
+    - Quando um `Deployment` é criado, um `Rollout` é trigado
+    - Um novo Rollout cria um novo `Deployment revision`
+    - Quando a aplicação e os conteineres são atualizado, um novo Deployment revision é criada
+    - Com isso é possível voltar uma versão do Deployment se necessário
+    - comando kubectl
+        - kubectl rollout status deployment/test
+        - kubectl rollout history deployment/test
+        - kubectl rollout undo deployment/test
+        
