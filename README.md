@@ -145,3 +145,32 @@ Anotações e códigos de estudo sobre o ecossistema do Kubernetes
                 matchLabels:
                 app: myapp
             ```
+## Deployment
+
+- Tem a hierarquia mais alta dos objetos do Kubernetes
+- Tem a capacidade de atualizar as instâncias subjacentes sem problemas usando atualizações contínuas.
+- Consegue desfazer as alterações facilmente a qualquer momento
+- Configuração do Deployment em YAML
+    ```yaml
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+        name: myapp-replicaset
+        labels:
+            app: myapp
+        spec:
+        template:
+            metadata:
+            name: myapp-pod
+            labels:
+                app: myapp
+            spec:
+            containers:
+                - name: nginx
+                image: nginx
+        replicas: 3
+        selector:
+            matchLabels:
+                app: myapp
+    ```
+
