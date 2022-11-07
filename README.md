@@ -71,18 +71,18 @@ Anotações e códigos de estudo sobre o ecossistema do Kubernetes
     - kubectl delete pod `pod_name`
 - Configuralção de Pod como YAML
     ```yaml
-        apiVersion: v1 # versão da API do Kubernetes
-        kind: Pod # tipo de objeto que será cirado
-        metadata: # dados referentes ao objeto
-            name: myapp-pod
-            labels:
-                app: myapp
-                type: front-end
+    apiVersion: v1 # versão da API do Kubernetes
+    kind: Pod # tipo de objeto que será cirado
+    metadata: # dados referentes ao objeto
+        name: myapp-pod
+        labels:
+            app: myapp
+            type: front-end
 
-        spec: # informações adicionais do objeto, pode ser diferente de acordo com o tipo de objeto
-            containers:
-                - name: nginx-container
-                    image: nginx
+    spec: # informações adicionais do objeto, pode ser diferente de acordo com o tipo de objeto
+        containers:
+            - name: nginx-container
+                image: nginx
     ```
 
 ## Controllers
@@ -152,26 +152,26 @@ Anotações e códigos de estudo sobre o ecossistema do Kubernetes
 - Consegue desfazer as alterações facilmente a qualquer momento
 - Configuração do Deployment em YAML
     ```yaml
-        apiVersion: apps/v1
-        kind: Deployment
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+    name: myapp-replicaset
+    labels:
+        app: myapp
+    spec:
+    template:
         metadata:
-        name: myapp-replicaset
+        name: myapp-pod
         labels:
             app: myapp
         spec:
-        template:
-            metadata:
-            name: myapp-pod
-            labels:
-                app: myapp
-            spec:
-            containers:
-                - name: nginx
-                image: nginx
-        replicas: 3
-        selector:
-            matchLabels:
-                app: myapp
+        containers:
+            - name: nginx
+            image: nginx
+    replicas: 3
+    selector:
+        matchLabels:
+            app: myapp
     ```
 - Rollout
     - Quando um `Deployment` é criado, um `Rollout` é trigado
@@ -183,3 +183,37 @@ Anotações e códigos de estudo sobre o ecossistema do Kubernetes
         - kubectl rollout history deployment/test
         - kubectl rollout undo deployment/test
         
+
+## Networking
+
+- Cada POD possui seu próprio endereço de IP interno
+- Na configuração inicial do Kubernetes é definido uma rede privada e os PODs são anexados a essa rede
+
+
+## Services
+
+- É um objeto do Kubernetes que permite comunicação entre vários componentes fora da aplicação 
+- Ajuda a conectar aplicações diferentes entre si ou usuários
+- Tipos de Services
+    - NodePort
+        - Torna um POD interno acessível á  uma porta no Node
+    - ClusterIP
+        - Cria um IP virtual dentro do Cluster para permitir comunicação entre diferentes Services
+    - Load Balancer
+        - Provisiona um load balancer para a aplicação nos provedores cloud suportados
+- Configuração de um Service em YAML
+    ```yaml
+    apiVersion: v1
+    kind: Service
+    metadata:
+    name: myapp-service
+    spec:
+    type: NodePort
+    ports:
+        - targetPort: 80 # Opcional
+        port: 80
+        nodePort: 30008 # Opcional
+    selector:
+        app: myapp
+        tier: front-end
+    ```
