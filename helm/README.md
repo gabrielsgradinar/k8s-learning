@@ -16,3 +16,15 @@
     - Comando que ajuda a ver como serão criados os arquivos do Kubernetes antes de ser executado
     - Ajuda com debug
     - `helm install mydb bitnami/mysql --values values.yaml --dry-run`
+
+- Criação de Chart
+    - `helm create chart_name` # por default cria um chart com nginx
+    - Estrutura de um Chart
+    ```
+    Chart.yaml -> metadados do Chart
+    charts/ -> onde outros Charts de dependência são copiados
+    templates/ -> onde ficam os templates para a criação dos objetos do kubernetes
+    values.yaml -> todos os valores padrão que serão usados nos templates
+    ```
+    - Instalação do Chart
+        - `helm install firstapp /chart_folder`
