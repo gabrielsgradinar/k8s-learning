@@ -39,4 +39,23 @@
     {{.Chart.Name}}
     {{.Release.Name}}
     {{.Values.my.custom.data | default "testdefault" | upper | quote}}
+
+    {{ $myFLAG := .Values.my.flag }}
+    {{- if $myFLAG }}
+    {{"Output of IF" | nindent 2}}
+    {{- else}}
+    {{"Output of ELSE" | nindent 2}}
+    {{- end}}
+
+    {{- with .Values.my.values}}
+    {{- toYaml . | nindent 2 }}
+    {{- end}}
+
+    {{- range .Values.my.values}}
+    - {{. | upper }}
+    {{- end}}
+
+    {{- range $key, $value := .Values.image}}
+    - {{$key}}: {{$value}}
+    {{- end}}
     ```
