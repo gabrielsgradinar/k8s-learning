@@ -1,3 +1,13 @@
+my:
+  custom:
+    data: "test"
+  flag: true
+  values:
+    - usa
+    - india
+    - mexico
+    - brazil
+
 # Default values for firstchart.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.

@@ -28,3 +28,15 @@
     ```
     - Instalação do Chart
         - `helm install firstapp /chart_folder`
+
+- Templates
+    - Actions
+        - {{ }}
+        - Dentro das Actions podemos usar lógicas de programação e funções
+    - `.Values` -> contém todas as informações do `values.yaml`
+    ```yaml
+    {{.Values.my.custom.data}}
+    {{.Chart.Name}}
+    {{.Release.Name}}
+    {{.Values.my.custom.data | default "testdefault" | upper | quote}}
+    ```

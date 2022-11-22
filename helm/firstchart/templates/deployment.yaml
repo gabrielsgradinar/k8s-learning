@@ -1,5 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
+  # {{ $myFLAG := .Values.my.flag }}
+  # {{- if $myFLAG }}
+  # {{"Output of IF" | nindent 2}}
+  # {{- else}}
+  # {{"Output of ELSE" | nindent 2}}
+  # {{- end}}
+
+  # {{- with .Values.my.values}}
+  # {{- toYaml . | nindent 2 }}
+  # {{- end}}
+
+  # {{- range .Values.my.values}}
+  # - {{. | upper }}
+  # {{- end}}
+
+  # {{- range $key, $value := .Values.image}}
+  # - {{$key}}: {{$value}}
+  # {{- end}}
 metadata:
   name: {{ include "firstchart.fullname" . }}
   labels:
