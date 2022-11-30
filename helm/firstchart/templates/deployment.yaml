@@ -1,6 +1,5 @@
 apiVersion: apps/v1
 kind: Deployment
-  {{template "firstchart.mytemplate" .}}
 metadata:
   name: {{ include "firstchart.fullname" . }}
   labels:

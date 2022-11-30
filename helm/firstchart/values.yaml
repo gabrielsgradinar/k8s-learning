@@ -92,3 +92,14 @@ tolerations: []
 affinity: {}
 
 myValue: test
+
+tags:
+  enabled: true
+
+mysql:
+  auth:
+    rootPassword: test1234
+  primary:
+    service:
+      type: NodePort
+      nodePort: 30788

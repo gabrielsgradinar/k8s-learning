@@ -59,3 +59,34 @@
     - {{$key}}: {{$value}}
     {{- end}}
     ```
+
+- Dependências
+    - Em `Chart.yaml` podemos adicionar o setor de dependências do nosso chart
+    ```yaml
+    dependencies:
+    - name: mysql
+        version: "9.4.4"
+        repository: "https://charts.bitnami.com/bitnami"
+    ```
+    - Para instalar as dependências `helm dependency update chart_folder`
+
+- Hooks
+    - A partir de algumas notações no `metadata` dos templates é possível executar algumas ações usando qualquer tipo de recurso do kubernetes
+    ```yaml
+    apiVersion: v1
+    kind: Pod
+    metadata:
+    name: "{{ include "firstchart.fullname" . }}-pre-install"
+    annotations:
+        "helm.sh/hook": pre-install
+        "helm.sh/hook-weight": "1"
+        "helm.sh/hook-delete-policy": hook-succeeded
+    spec:
+    containers:
+        - name: pre-install
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        command: ['sh', '-c', 'echo Pod is Running']
+    restartPolicy: OnFailure
+    ```
+ 
