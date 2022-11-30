@@ -89,4 +89,3 @@
         command: ['sh', '-c', 'echo Pod is Running']
     restartPolicy: OnFailure
     ```
- 

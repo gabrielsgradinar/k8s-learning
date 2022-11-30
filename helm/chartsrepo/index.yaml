@@ -1,0 +1,36 @@
+apiVersion: v1
+entries:
+  firstchart:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-11-30T20:06:23.606897412-03:00"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - enabled
+      version: '*'
+    description: A Helm chart for Kubernetes
+    digest: f1f9bb37347b44355b9066ef028367e46ffa86ce8be5917d8b94871469adaa9a
+    keywords:
+    - tags
+    maintainers:
+    - name: Gabriel
+    name: firstchart
+    type: application
+    urls:
+    - firstchart-0.1.0.tgz
+    version: 0.1.0
+  secondchart:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-11-30T20:06:23.607191519-03:00"
+    description: A Helm chart for Kubernetes
+    digest: 87bfd6d7e3dcb92613efc71909890b28f936a7da61a6785572308355ef42a5d4
+    name: secondchart
+    type: application
+    urls:
+    - secondchart-0.1.0.tgz
+    version: 0.1.0
+generated: "2022-11-30T20:06:23.60391607-03:00"
